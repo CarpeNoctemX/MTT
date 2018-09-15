@@ -1,21 +1,27 @@
 ﻿@model IEnumerable<MTT.Models.Role>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Roles";
 }
 
-<h2>Index</h2>
+<h2>Roles</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
+        <th> 
+            @Html.DisplayNameFor(model => model.RoleID)
+         </th>
         <th>
             @Html.DisplayNameFor(model => model.Champion)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.KDA)
+        </th>
+        <th>
+             Region 
         </th>
         <th></th>
     </tr>
@@ -23,11 +29,21 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+
+            @Html.DisplayNameFor(model => model.RoleID)
+            </td>
+          <td>
             @Html.DisplayFor(modelItem => item.Champion)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.KDA)
         </td>
+
+        <td> 
+            
+            @Html.DisplayFor(modelItem => item.Region.Name) 
+        
+       </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.RoleID }) |
             @Html.ActionLink("Details", "Details", new { id=item.RoleID }) |

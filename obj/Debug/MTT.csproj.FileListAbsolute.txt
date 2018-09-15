@@ -112,3 +112,9 @@ C:\Users\Neo\Desktop\MTT\MTT\bin\Newtonsoft.Json.xml
 C:\Users\Neo\Desktop\MTT\MTT\obj\Debug\MTT.csprojResolveAssemblyReference.cache
 C:\Users\Neo\Desktop\MTT\MTT\obj\Debug\MTT.dll
 C:\Users\Neo\Desktop\MTT\MTT\obj\Debug\MTT.pdb
+C:\Users\Neo\Desktop\MTT\MTT\obj\Debug\MTT.Migrations.InitialCreate.resources
+C:\Users\Neo\Desktop\MTT\MTT\obj\Debug\MTT.csproj.GenerateResource.Cache
+C:\Users\Neo\Desktop\MTT\MTT\bin\PagedList.dll
+C:\Users\Neo\Desktop\MTT\MTT\bin\PagedList.Mvc.dll
+C:\Users\Neo\Desktop\MTT\MTT\bin\PagedList.xml
+C:\Users\Neo\Desktop\MTT\MTT\bin\PagedList.Mvc.xml
