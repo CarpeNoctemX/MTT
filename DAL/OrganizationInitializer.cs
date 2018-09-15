@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MTT.Models;
+
 namespace MTT.DAL
 {
     public class OrganizationInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<OrganizationContext>
@@ -9,7 +10,7 @@ namespace MTT.DAL
         {
             var players = new List<Player>
  {
- new Player{FirstMidName="Gabriël",LastName="Rau",JoinDate=DateTime.Parse("2018-01-07")},
+ new Player{FirstMidName="Gabriel",LastName="Rau",JoinDate=DateTime.Parse("2018-01-07")},
  new Player{FirstMidName="Paul",LastName="Boyer",JoinDate=DateTime.Parse("2016-12-01")},
  new Player{FirstMidName="Mads",LastName="Brock-Pedersen",JoinDate=DateTime.Parse("2017-02-06")},
  new Player{FirstMidName="Rasmus",LastName="Winther",JoinDate=DateTime.Parse("2016-12-01")},

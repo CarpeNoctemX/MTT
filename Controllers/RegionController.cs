@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -11,108 +12,113 @@ using MTT.Models;
 
 namespace MTT.Controllers
 {
-    public class RoleController : Controller
+    public class RegionController : Controller
     {
         private OrganizationContext db = new OrganizationContext();
 
-        // GET: Role
-        public ActionResult Index()
+        // GET: Region
+        public async Task<ActionResult> Index()
         {
-            return View(db.Roles.ToList());
+            var regions = db.Regions.Include(r => r.Administrator);
+            return View(await regions.ToListAsync());
         }
 
-        // GET: Role/Details/5
-        public ActionResult Details(int? id)
+        // GET: Region/Details/5
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Role role = db.Roles.Find(id);
-            if (role == null)
+            Region region = await db.Regions.FindAsync(id);
+            if (region == null)
             {
                 return HttpNotFound();
             }
-            return View(role);
+            return View(region);
         }
 
-        // GET: Role/Create
+        // GET: Region/Create
         public ActionResult Create()
         {
+            ViewBag.CoachID = new SelectList(db.Coaches, "ID", "LastName");
             return View();
         }
 
-        // POST: Role/Create
+        // POST: Region/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RoleID,Champion,KDA")] Role role)
+        public async Task<ActionResult> Create([Bind(Include = "RegionID,Name,Budget,StartDate,CoachID")] Region region)
         {
             if (ModelState.IsValid)
             {
-                db.Roles.Add(role);
-                db.SaveChanges();
+                db.Regions.Add(region);
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            return View(role);
+            ViewBag.CoachID = new SelectList(db.Coaches, "ID", "LastName", region.CoachID);
+            return View(region);
         }
 
-        // GET: Role/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: Region/Edit/5
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Role role = db.Roles.Find(id);
-            if (role == null)
+            Region region = await db.Regions.FindAsync(id);
+            if (region == null)
             {
                 return HttpNotFound();
             }
-            return View(role);
+            ViewBag.CoachID = new SelectList(db.Coaches, "ID", "LastName", region.CoachID);
+            return View(region);
         }
 
-        // POST: Role/Edit/5
+        // POST: Region/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RoleID,Champion,KDA")] Role role)
+        public async Task<ActionResult> Edit([Bind(Include = "RegionID,Name,Budget,StartDate,CoachID")] Region region)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(role).State = EntityState.Modified;
-                db.SaveChanges();
+                db.Entry(region).State = EntityState.Modified;
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(role);
+            ViewBag.CoachID = new SelectList(db.Coaches, "ID", "LastName", region.CoachID);
+            return View(region);
         }
 
-        // GET: Role/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: Region/Delete/5
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Role role = db.Roles.Find(id);
-            if (role == null)
+            Region region = await db.Regions.FindAsync(id);
+            if (region == null)
             {
                 return HttpNotFound();
             }
-            return View(role);
+            return View(region);
         }
 
-        // POST: Role/Delete/5
+        // POST: Region/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Role role = db.Roles.Find(id);
-            db.Roles.Remove(role);
-            db.SaveChanges();
+            Region region = await db.Regions.FindAsync(id);
+            db.Regions.Remove(region);
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 

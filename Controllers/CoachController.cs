@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -11,108 +12,108 @@ using MTT.Models;
 
 namespace MTT.Controllers
 {
-    public class RoleController : Controller
+    public class CoachController : Controller
     {
         private OrganizationContext db = new OrganizationContext();
 
-        // GET: Role
-        public ActionResult Index()
+        // GET: Coach
+        public async Task<ActionResult> Index()
         {
-            return View(db.Roles.ToList());
+            return View(await db.Coaches.ToListAsync());
         }
 
-        // GET: Role/Details/5
-        public ActionResult Details(int? id)
+        // GET: Coach/Details/5
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Role role = db.Roles.Find(id);
-            if (role == null)
+            Coach coach = await db.Coaches.FindAsync(id);
+            if (coach == null)
             {
                 return HttpNotFound();
             }
-            return View(role);
+            return View(coach);
         }
 
-        // GET: Role/Create
+        // GET: Coach/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Role/Create
+        // POST: Coach/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RoleID,Champion,KDA")] Role role)
+        public async Task<ActionResult> Create([Bind(Include = "ID,LastName,FirstMidName,HireDate")] Coach coach)
         {
             if (ModelState.IsValid)
             {
-                db.Roles.Add(role);
-                db.SaveChanges();
+                db.Coaches.Add(coach);
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            return View(role);
+            return View(coach);
         }
 
-        // GET: Role/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: Coach/Edit/5
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Role role = db.Roles.Find(id);
-            if (role == null)
+            Coach coach = await db.Coaches.FindAsync(id);
+            if (coach == null)
             {
                 return HttpNotFound();
             }
-            return View(role);
+            return View(coach);
         }
 
-        // POST: Role/Edit/5
+        // POST: Coach/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RoleID,Champion,KDA")] Role role)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,LastName,FirstMidName,HireDate")] Coach coach)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(role).State = EntityState.Modified;
-                db.SaveChanges();
+                db.Entry(coach).State = EntityState.Modified;
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(role);
+            return View(coach);
         }
 
-        // GET: Role/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: Coach/Delete/5
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Role role = db.Roles.Find(id);
-            if (role == null)
+            Coach coach = await db.Coaches.FindAsync(id);
+            if (coach == null)
             {
                 return HttpNotFound();
             }
-            return View(role);
+            return View(coach);
         }
 
-        // POST: Role/Delete/5
+        // POST: Coach/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Role role = db.Roles.Find(id);
-            db.Roles.Remove(role);
-            db.SaveChanges();
+            Coach coach = await db.Coaches.FindAsync(id);
+            db.Coaches.Remove(coach);
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 

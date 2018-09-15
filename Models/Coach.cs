@@ -5,13 +5,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MTT.Models
 {
-    public class Player : Person
+    public class Coach : Person
     {
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Join Date")]
-        public DateTime JoinDate { get; set; }
-
-        public virtual ICollection<Team> Teams { get; set; }
+        [Display(Name = "Hire Date")]
+        public DateTime HireDate { get; set; }
+        public virtual ICollection<Role> Roles { get; set; }
+        
     }
-}
+}
